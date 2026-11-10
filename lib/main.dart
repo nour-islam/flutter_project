@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/login_screen.dart';
 
 void main() {
   runApp(const ReCartApp());
@@ -16,7 +17,7 @@ class ReCartApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      home: const LoginScreen(),
     );
   }
 }
@@ -28,7 +29,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ReCart - متجر المنتجات المستدامة'),
+        title: const Text('ReCart - الصفحة الرئيسية'),
         backgroundColor: Colors.teal,
         foregroundColor: Colors.white,
       ),
@@ -43,7 +44,7 @@ class HomeScreen extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             const Text(
-              'منصتك الأولى لبيع وشراء المنتجات الجديدة، المستعملة والمعاد تدويرها.',
+              'منصتك الأولى لبيع وشراء المنتجات الجديدة والمستعملة والمعاد تدويرها.',
               style: TextStyle(fontSize: 14, color: Colors.grey),
             ),
             const SizedBox(height: 20),
