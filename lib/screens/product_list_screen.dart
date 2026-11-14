@@ -42,6 +42,10 @@ class ProductListScreen extends StatelessWidget {
         icon: Icons.recycling,
       ),
     ];
+    final products =
+        sampleProducts
+            .where((product) => product.category == categoryName)
+            .toList();
 
     return Scaffold(
       appBar: AppBar(
@@ -49,42 +53,52 @@ class ProductListScreen extends StatelessWidget {
         backgroundColor: Colors.teal,
         foregroundColor: Colors.white,
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(16),
-        itemCount: sampleProducts.length,
-        itemBuilder: (context, index) {
-          final product = sampleProducts[index];
-          return Card(
-            margin: const EdgeInsets.only(bottom: 12),
-            child: ListTile(
-              leading: CircleAvatar(
-                backgroundColor: Colors.teal.shade50,
-                child: Icon(product.icon, color: Colors.teal),
-              ),
-              title: Text(
-                product.title,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-              subtitle: Text(product.price),
-              trailing: ElevatedButton(
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('تمت إضافة "${product.title}" إلى السلة!'),
-                      duration: const Duration(seconds: 2),
+      body:
+          products.isEmpty
+              ? const Center(
+                child: Text(
+                  'لا توجد منتجات في هذه الفئة حالياً',
+                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                ),
+              )
+              : ListView.builder(
+                padding: const EdgeInsets.all(16),
+                itemCount: products.length,
+                itemBuilder: (context, index) {
+                  final product = products[index];
+                  return Card(
+                    margin: const EdgeInsets.only(bottom: 12),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: Colors.teal.shade50,
+                        child: Icon(product.icon, color: Colors.teal),
+                      ),
+                      title: Text(
+                        product.title,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text(product.price),
+                      trailing: ElevatedButton(
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'تمت إضافة "${product.title}" إلى السلة!',
+                              ),
+                              duration: const Duration(seconds: 2),
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.teal,
+                          foregroundColor: Colors.white,
+                        ),
+                        child: const Text('إضافة للسلة'),
+                      ),
                     ),
                   );
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.teal,
-                  foregroundColor: Colors.white,
-                ),
-                child: const Text('إضافة للسلة'),
               ),
-            ),
-          );
-        },
-      ),
     );
   }
 }
